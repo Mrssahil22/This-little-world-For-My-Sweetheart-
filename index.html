@@ -105,10 +105,10 @@ import {
   getDocs,
   addDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-async function loadQuestions() {
 
-   showQuestion();
-}
+
+   
+
 const firebaseConfig = {
   apiKey: "AIzaSyBMkbP9qs-PrOzzzd4x910Yh0F4oYOSyQY",
   authDomain: "for-my-love-3e847.firebaseapp.com",
@@ -132,7 +132,7 @@ const msg = document.getElementById("message");
 const next = document.getElementById("nextBtn");
 
 async function loadQuestions() { 
-  const snap = await getDocs(collection(db, "answers"));
+  const snap = await getDocs(collection(db, "questions"));
 
   questions = snap.docs.map(doc => ({
     id: doc.id,
