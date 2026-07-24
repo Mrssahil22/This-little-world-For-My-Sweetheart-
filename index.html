@@ -97,7 +97,7 @@ cursor:pointer;
 
 </div>
 
-<! <script type="module">
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
   getFirestore,
@@ -105,7 +105,10 @@ import {
   getDocs,
   addDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+async function loadQuestions() {
 
+   showQuestion();
+}
 const firebaseConfig = {
   apiKey: "AIzaSyBMkbP9qs-PrOzzzd4x910Yh0F4oYOSyQY",
   authDomain: "for-my-love-3e847.firebaseapp.com",
@@ -128,7 +131,7 @@ const o2 = document.getElementById("option2");
 const msg = document.getElementById("message");
 const next = document.getElementById("nextBtn");
 
-async function loadQuestions() {
+async function loadQuestions() { 
   const snap = await getDocs(collection(db, "answers"));
 
   questions = snap.docs.map(doc => ({
@@ -138,9 +141,7 @@ async function loadQuestions() {
 
   showQuestion();
 }
-
-</body>
-</html>function showQuestion() {
+function showQuestion() {
 
 msg.style.display="none";
 next.style.display="none";
@@ -209,7 +210,9 @@ I love you today, tomorrow and forever. 💍❤️
 
 };
 
-loadQuestions();function createHeart(){
+loadQuestions();
+
+function createHeart(){
 
 const heart=document.createElement("div");
 
@@ -244,15 +247,12 @@ opacity:1;
 transform:translateY(110vh) rotate(360deg);
 opacity:0;
 }
-}
-`;
+ `
+;
 
 document.head.appendChild(style);
 
 </script>
-
-</body>
-</html></script>
 
 </body>
 </html>
