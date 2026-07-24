@@ -132,7 +132,7 @@ const msg = document.getElementById("message");
 const next = document.getElementById("nextBtn");
 
 async function loadQuestions() { 
-  const snap = await getDocs(collection(db, "questions"));
+  const snap = await getDocs(collection(db, "answers"));
 
   questions = snap.docs.map(doc => ({
     id: doc.id,
