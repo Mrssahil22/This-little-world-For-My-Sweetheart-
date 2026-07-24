@@ -154,13 +154,12 @@ const questionKey = Object.keys(item).find(key =>
 
 q.innerHTML = item[questionKey];
 
-o1.innerHTML=item.option1;
+o1.innerHTML = item.Option1;
+  o2.innerHTML = item.Option2;
 
-o2.innerHTML=item.option2;
+o1.onclick = () => saveAnswer(item.Option1, item.Message);
 
-o1.onclick=()=>saveAnswer(item.option1,item.message);
-
-o2.onclick=()=>saveAnswer(item.option2,item.message);
+o2.onclick = () => saveAnswer(item.Option2, item.Message);
 
 }
 
