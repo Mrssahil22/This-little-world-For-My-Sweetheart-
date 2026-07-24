@@ -164,14 +164,13 @@ o2.onclick = () => saveAnswer(item.Option2, item.Message);
 }
 
 async function saveAnswer(answer,message){
-
-await addDoc(collection(db,"responses"),{
-
-question: questions[current][questionKey],
-
-selectedAnswer:answer,
-
-time:new Date()
+const questionKey = Object.keys(questions[current]).find(key =>
+  key.toLowerCase().startsWith("question")
+);
+await addDoc(collection(db, "responses"), {
+  question: questions[current][questionKey],
+  selectedAnswer: answer,
+time: new Date()
 
 });
 
