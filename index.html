@@ -148,7 +148,11 @@ next.style.display="none";
 
 const item=questions[current];
 
-q.innerHTML=item.question;
+const questionKey = Object.keys(item).find(key =>
+  key.toLowerCase().startsWith("question")
+);
+
+q.innerHTML = item[questionKey];
 
 o1.innerHTML=item.option1;
 
@@ -164,7 +168,7 @@ async function saveAnswer(answer,message){
 
 await addDoc(collection(db,"responses"),{
 
-question:questions[current].question,
+question: questions[current][questionKey],
 
 selectedAnswer:answer,
 
