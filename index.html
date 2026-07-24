@@ -3,125 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aiman ❤️ Abdullah</title>
+<title>For My Beloved Husband ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:Poppins,sans-serif;
 }
 
 body{
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#ffb6d9,#ffd6e7,#ffeef5);
-text-align:center;
-overflow-x:hidden;
-color:white;
+background:linear-gradient(135deg,#ff9ecf,#ffd6e7);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+overflow:hidden;
 }
 
-header{
-padding:50px 20px;
+.container{
+width:90%;
+max-width:700px;
+background:#fff;
+padding:30px;
+border-radius:25px;
+box-shadow:0 15px 40px rgba(0,0,0,.2);
+text-align:center;
 }
 
 h1{
-font-size:42px;
-text-shadow:0 0 15px hotpink;
+color:#e91e63;
+margin-bottom:20px;
 }
 
-h3{
-font-weight:normal;
-margin-top:10px;
+#question{
+font-size:24px;
+font-weight:bold;
+margin:25px 0;
+color:#444;
 }
 
-button{
-margin-top:30px;
-padding:15px 35px;
+.option{
+width:100%;
+padding:15px;
+margin:10px 0;
 border:none;
-border-radius:50px;
-background:#ff1493;
+border-radius:15px;
+font-size:18px;
+cursor:pointer;
+background:#e91e63;
+color:white;
+}
+
+#message{
+display:none;
+margin-top:20px;
+font-size:20px;
+color:#e91e63;
+}
+
+#nextBtn{
+display:none;
+margin-top:25px;
+padding:12px 35px;
+border:none;
+border-radius:15px;
+background:#ff4081;
 color:white;
 font-size:18px;
 cursor:pointer;
-box-shadow:0 0 15px pink;
 }
+</style>
+</head>
 
-.section{
-width:90%;
-max-width:700px;
-margin:25px auto;
-background:white;
-color:#444;
-padding:20px;
-border-radius:20px;
-box-shadow:0 0 15px rgba(0,0,0,.2);
-}
+<body>
 
-.section h2{
-color:#ff1493;
-margin-bottom:15px;
-}
+<div class="container">
 
-#letter{
-display:none;
-animation:fade 1s;
-}
+<h1>❤️ For My Beloved Husband ❤️</h1>
 
-@keyframes fade{
-from{opacity:0;}
-to{opacity:1;}
-}
+<div id="question">Loading...</div>
 
-</style><div class="section">
-<h2>💕 Our Love Questions 💕</h2>
+<button id="option1" class="option"></button>
 
-<p><b>Q:</b> Who is my favorite person?<br>
-<b>A:</b> Abdullah ❤️</p>
-<hr>
+<button id="option2" class="option"></button>
 
-<p><b>Q:</b> Who makes me smile the most?<br>
-<b>A:</b> You 🥰</p>
-<hr>
+<div id="message"></div>
 
-<p><b>Q:</b> Who owns my heart?<br>
-<b>A:</b> Only You ❤️</p>
-<hr>
-
-<p><b>Q:</b> Who is my forever?<br>
-<b>A:</b> Abdullah Sahil 💍</p>
-<hr>
-
-<p><b>Q:</b> What is my biggest dream?<br>
-<b>A:</b> To grow old with you. 🌹</p>
-<hr>
-
-<p><b>Q:</b> What is my safest place?<br>
-<b>A:</b> In your arms. 🤍</p>
-<hr>
-
-<p><b>Q:</b> What<div class="section">
-<h2>🌹 A Promise For You 🌹</h2>
-
-<p>
-Abdullah ❤️<br><br>
-
-No matter how difficult life becomes,<br>
-I will stand beside you.<br><br>
-
-When you smile, I smile.<br>
-When you are sad, I will hold your hand.<br><br>
-
-You are my today,<br>
-my tomorrow,<br>
-and my forever. 💕
-</p>
+<button id="nextBtn">Next ❤️</button>
 
 </div>
 
-<script>
+<! <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-function createHeart(){
+const firebaseConfig = {
+  apiKey: "AIzaSyBMkbP9qs-PrOzzzd4x910Yh0F4oYOSyQY",
+  authDomain: "for-my-love-3e847.firebaseapp.com",
+  projectId: "for-my-love-3e847",
+  storageBucket: "for-my-love-3e847.firebasestorage.app",
+  messagingSenderId: "17747922285",
+  appId: "1:17747922285:web:c1841304e8cce86c801e64",
+  measurementId: "G-7R2DF3CKFW"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let questions = [];
+let current = 0;
+
+const q = document.getElementById("question");
+const o1 = document.getElementById("option1");
+const o2 = document.getElementById("option2");
+const msg = document.getElementById("message");
+const next = document.getElementById("nextBtn");
+
+async function loadQuestions() {
+  const snap = await getDocs(collection(db, "answers"));
+
+  questions = snap.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+
+  showQuestion();
+}
+
+</body>
+</html>function showQuestion() {
+
+msg.style.display="none";
+next.style.display="none";
+
+const item=questions[current];
+
+q.innerHTML=item.question;
+
+o1.innerHTML=item.option1;
+
+o2.innerHTML=item.option2;
+
+o1.onclick=()=>saveAnswer(item.option1,item.message);
+
+o2.onclick=()=>saveAnswer(item.option2,item.message);
+
+}
+
+async function saveAnswer(answer,message){
+
+await addDoc(collection(db,"responses"),{
+
+question:questions[current].question,
+
+selectedAnswer:answer,
+
+time:new Date()
+
+});
+
+msg.innerHTML=message;
+
+msg.style.display="block";
+
+next.style.display="inline-block";
+
+}
+
+next.onclick=()=>{
+
+current++;
+
+if(current<questions.length){
+
+showQuestion();
+
+}else{
+
+document.querySelector(".container").innerHTML=`
+
+<h1>❤️ Thank You My Love ❤️</h1>
+
+<p style="font-size:24px;margin-top:20px;line-height:40px;">
+
+Thank you for answering every question. ❤️<br><br>
+
+You are my greatest blessing.<br>
+
+I love you today, tomorrow and forever. 💍❤️
+
+</p>
+
+`;
+
+}
+
+};
+
+loadQuestions();function createHeart(){
 
 const heart=document.createElement("div");
 
@@ -129,35 +217,42 @@ heart.innerHTML="❤️";
 
 heart.style.position="fixed";
 heart.style.left=Math.random()*100+"vw";
-heart.style.top="-30px";
-heart.style.fontSize=(20+Math.random<div class="section">
-<h2>💖 My Final Message 💖</h2>
+heart.style.top="-20px";
+heart.style.fontSize=(20+Math.random()*20)+"px";
+heart.style.pointerEvents="none";
+heart.style.animation="fall 5s linear forwards";
 
-<p>
+document.body.appendChild(heart);
 
-Dear Abdullah,
+setTimeout(()=>{
+heart.remove();
+},5000);
 
-Thank you for being the most beautiful part of my life.
+}
 
-I pray that Allah always keeps us together,
-fills our home with love,
-and blesses our marriage with happiness and peace.
+setInterval(createHeart,500);
 
-No matter how many years pass,
-my heart will always belong to you.
+const style=document.createElement("style");
 
-Forever Yours,
+style.innerHTML=`
+@keyframes fall{
+0%{
+transform:translateY(-20px) rotate(0deg);
+opacity:1;
+}
+100%{
+transform:translateY(110vh) rotate(360deg);
+opacity:0;
+}
+}
+`;
 
-❤️ Aiman ❤️
+document.head.appendChild(style);
 
-</p>
+</script>
 
-</div>
-
-<footer style="padding:30px;color:white;font-size:18px;">
-Made with Endless Love ❤️ <br>
-Aiman ❤️ Abdullah
-</footer>
+</body>
+</html></script>
 
 </body>
 </html>
