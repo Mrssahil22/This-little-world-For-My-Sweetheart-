@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Beloved Husband ❤️</title>
+<title>My Little World ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Poppins,sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
@@ -36,26 +37,51 @@ text-align:center;
 
 h1{
 color:#e91e63;
+margin-bottom:15px;
+}
+
+p{
+font-size:18px;
+color:#555;
 margin-bottom:20px;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:15px;
+background:#e91e63;
+color:#fff;
+font-size:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#d81b60;
+}
+
+input{
+width:100%;
+padding:15px;
+margin-top:15px;
+border-radius:12px;
+border:2px solid #ff80ab;
+font-size:18px;
+outline:none;
+}
+
+.hide{
+display:none;
 }
 
 #question{
 font-size:24px;
 font-weight:bold;
-margin:25px 0;
+margin:20px 0;
 color:#444;
-}
-
-.option{
-width:100%;
-padding:15px;
-margin:10px 0;
-border:none;
-border-radius:15px;
-font-size:18px;
-cursor:pointer;
-background:#e91e63;
-color:white;
 }
 
 #message{
@@ -67,15 +93,8 @@ color:#e91e63;
 
 #nextBtn{
 display:none;
-margin-top:25px;
-padding:12px 35px;
-border:none;
-border-radius:15px;
-background:#ff4081;
-color:white;
-font-size:18px;
-cursor:pointer;
 }
+
 </style>
 </head>
 
@@ -83,178 +102,178 @@ cursor:pointer;
 
 <div class="container">
 
-<h1>❤️ For My Beloved Husband ❤️</h1>
+<div id="startPage">
 
-<div id="question">Loading...</div>
+<h1>❤️ Welcome My Love ❤️</h1>
 
-<button id="option1" class="option"></button>
+<p>I made something special only for you 🥹❤️</p>
 
-<button id="option2" class="option"></button>
-
-<div id="message"></div>
-
-<button id="nextBtn">Next ❤️</button>
+<button id="startBtn">
+Click Here ❤️
+</button>
 
 </div>
 
+<div id="namePage" class="hide">
+
+<h1>Your Beautiful Name ❤️</h1>
+
+<input
+type="text"
+id="userName"
+placeholder="Enter Your Name">
+
+<button id="continueBtn">
+Continue ❤️
+</button>
+
+</div>
+
+<div id="quizPage" class="hide">
+
+<h1 id="welcomeText"></h1>
+
+<div id="question">
+Loading...
+</div>
+
+<button id="option1"></button>
+
+<button id="option2"></button>
+
+<div id="message"></div>
+
+<button id="nextBtn">
+Next ❤️
+</button>
+
+</div>
+
+</div>
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
 import {
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc
+getFirestore,
+collection,
+getDocs,
+query,
+orderBy,
+addDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-
-   
-
 const firebaseConfig = {
-  apiKey: "AIzaSyBMkbP9qs-PrOzzzd4x910Yh0F4oYOSyQY",
-  authDomain: "for-my-love-3e847.firebaseapp.com",
-  projectId: "for-my-love-3e847",
-  storageBucket: "for-my-love-3e847.firebasestorage.app",
-  messagingSenderId: "17747922285",
-  appId: "1:17747922285:web:c1841304e8cce86c801e64",
-  measurementId: "G-7R2DF3CKFW"
+apiKey: "AIzaSyBMkbP9qs-PrOzzzd4x910Yh0F4oYOSyQY",
+authDomain: "for-my-love-3e847.firebaseapp.com",
+projectId: "for-my-love-3e847",
+storageBucket: "for-my-love-3e847.firebasestorage.app",
+messagingSenderId: "17747922285",
+appId: "1:17747922285:web:c1841304e8cce86c801e64",
+measurementId: "G-7R2DF3CKFW"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let questions = [];
-let current = 0;
+const startPage=document.getElementById("startPage");
+const namePage=document.getElementById("namePage");
+const quizPage=document.getElementById("quizPage");
 
-const q = document.getElementById("question");
-const o1 = document.getElementById("option1");
-const o2 = document.getElementById("option2");
-const msg = document.getElementById("message");
-const next = document.getElementById("nextBtn");
+const startBtn=document.getElementById("startBtn");
+const continueBtn=document.getElementById("continueBtn");
 
-async function loadQuestions() { 
-  const snap = await getDocs(collection(db, "answers"));
+const userName=document.getElementById("userName");
+const welcomeText=document.getElementById("welcomeText");
 
-  questions = snap.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  }));
+const question=document.getElementById("question");
+const option1=document.getElementById("option1");
+const option2=document.getElementById("option2");
+const message=document.getElementById("message");
+const nextBtn=document.getElementById("nextBtn");
 
-  showQuestion();
+let questions=[];
+let current=0;
+
+startBtn.onclick=()=>{
+
+startPage.classList.add("hide");
+namePage.classList.remove("hide");
+
+};
+
+continueBtn.onclick=async()=>{
+
+if(userName.value.trim()==""){
+
+alert("Please enter your name ❤️");
+return;
+
 }
-function showQuestion() {
+  loadQuestion();
 
-msg.style.display="none";
-next.style.display="none";
+};
+
+function loadQuestion(){
+
+message.style.display="none";
+nextBtn.style.display="none";
 
 const item=questions[current];
 
-const questionKey = Object.keys(item).find(key =>
-  key.toLowerCase().startsWith("question")
-);
+question.innerHTML=item.Question;
 
-q.innerHTML = item[questionKey];
+option1.innerHTML=item.Option1;
+option2.innerHTML=item.Option2;
 
-o1.innerHTML = item.Option1;
-  o2.innerHTML = item.Option2;
+option1.onclick=()=>saveAnswer(item.Option1,item.Message);
 
-o1.onclick = () => saveAnswer(item.Option1, item.Message);
-
-o2.onclick = () => saveAnswer(item.Option2, item.Message);
+option2.onclick=()=>saveAnswer(item.Option2,item.Message);
 
 }
 
-async function saveAnswer(answer,message){
-const questionKey = Object.keys(questions[current]).find(key =>
-  key.toLowerCase().startsWith("question")
-);
-await addDoc(collection(db, "responses"), {
-  question: questions[current][questionKey],
-  selectedAnswer: answer,
-time: new Date()
+async function saveAnswer(answer,msg){
+
+await addDoc(collection(db,"responses"),{
+
+name:userName.value,
+
+question:questions[current].Question,
+
+selectedAnswer:answer,
+
+time:new Date()
 
 });
 
-msg.innerHTML=message;
+message.innerHTML=msg;
+message.style.display="block";
 
-msg.style.display="block";
-
-next.style.display="inline-block";
+nextBtn.style.display="block";
 
 }
-
-next.onclick=()=>{
+  nextBtn.onclick = () => {
 
 current++;
 
-if(current<questions.length){
+if(current < questions.length){
 
-showQuestion();
+loadQuestion();
 
 }else{
 
-document.querySelector(".container").innerHTML=`
+question.innerHTML = "🎉 Thank You My Love ❤️";
 
-<h1>❤️ Thank You My Love ❤️</h1>
+option1.style.display = "none";
+option2.style.display = "none";
+nextBtn.style.display = "none";
 
-<p style="font-size:24px;margin-top:20px;line-height:40px;">
-
-Thank you for answering every question. ❤️<br><br>
-
-You are my greatest blessing.<br>
-
-I love you today, tomorrow and forever. 💍❤️
-
-</p>
-
-`;
+message.style.display = "block";
+message.innerHTML = "Your answers have been saved forever 💖";
 
 }
 
 };
-
-loadQuestions();
-
-function createHeart(){
-
-const heart=document.createElement("div");
-
-heart.innerHTML="❤️";
-
-heart.style.position="fixed";
-heart.style.left=Math.random()*100+"vw";
-heart.style.top="-20px";
-heart.style.fontSize=(20+Math.random()*20)+"px";
-heart.style.pointerEvents="none";
-heart.style.animation="fall 5s linear forwards";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>{
-heart.remove();
-},5000);
-
-}
-
-setInterval(createHeart,500);
-
-const style=document.createElement("style");
-
-style.innerHTML=`
-@keyframes fall{
-0%{
-transform:translateY(-20px) rotate(0deg);
-opacity:1;
-}
-100%{
-transform:translateY(110vh) rotate(360deg);
-opacity:0;
-}
- `
-;
-
-document.head.appendChild(style);
-
-</script>
-
+  </script>
 </body>
 </html>
