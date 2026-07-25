@@ -129,13 +129,53 @@ Continue ❤️
 
 </div>
 
-<div id="quizPage" class="hide">
+<div id="finalPage" class="hide">
 
-<h1 id="welcomeText"></h1>
+    <h1>💖 One Last Message 💖</h1>
 
-<div id="question">
-Loading...
+    <p>
+        💞 My Dearest Love... ❤️<br><br>
+
+        If you are reading this, it means you completed every question just for us. 🥹❤️<br><br>
+
+        Every answer made me smile, and every moment reminded me how lucky I am to have you. 🌹<br><br>
+
+        No matter what happens, I will always choose you, respect you, and love you with all my heart. 💍❤️<br><br>
+
+        Thank you for being my happiness, my peace, and my forever person. ✨<br><br>
+
+        I Love You Forever & Always... ❤️♾️
+    </p>
+
+    <button id="loveBtn">💌 Open My Heart</button>
+
+    <div id="loveLetter" style="display:none; margin-top:20px;">
+
+        <h2>💖 A Letter Just For You 💖</h2>
+
+        <p>
+            My Sweetheart... ❤️<br><br>
+
+            You are the most beautiful part of my life. 🌹<br><br>
+
+            Every smile of yours makes my heart happy, and every moment with you is my favourite memory. 🥹❤️<br><br>
+
+            I promise to stand beside you, support you, make you smile, and love you more every single day. 💍✨<br><br>
+
+            No matter where life takes us, my heart will always belong to you. ❤️<br><br>
+
+            Forever Yours... ❤️♾️
+        </p>
+
+    </div>
+
 </div>
+
+
+
+
+
+
 
 <button id="option1"></button>
 
@@ -178,7 +218,8 @@ const db = getFirestore(app);
 
 const startPage=document.getElementById("startPage");
 const namePage=document.getElementById("namePage");
-const quizPage=document.getElementById("quizPage");
+const quizPage = document.getElementById("quizPage");
+  const finalPage = document.getElementById("finalPage");
 
 const startBtn=document.getElementById("startBtn");
 const continueBtn=document.getElementById("continueBtn");
@@ -269,42 +310,37 @@ await addDoc(collection(db,"responses"),{
 
 name:userName.value,
 
-question:questions[current].Question,
+question
+  question.innerHTML,
+        answer: answer,
+        message: msg,
+        time: new Date()
 
-selectedAnswer:answer,
+    });
 
-time:new Date()
-
-});
-
-message.innerHTML=msg;
-message.style.display="block";
-
-nextBtn.style.display="block";
-
+    message.innerHTML = msg;
+    message.style.display = "block";
+    nextBtn.style.display = "block";
 }
-  nextBtn.onclick = () => {
 
-current++;
 
-if(current < questions.length){
+nextBtn.onclick = () => {
 
-loadQuestion();
+    current++;
 
-}else{
+    if(current < questions.length){
 
-question.innerHTML = "🎉 Thank You My Love ❤️";
+        loadQuestion();
 
-option1.style.display = "none";
-option2.style.display = "none";
-nextBtn.style.display = "none";
+    }else{
 
-message.style.display = "block";
-message.innerHTML = "Your answers have been saved forever 💖";
+        quizPage.classList.add("hide");
+        finalPage.classList.remove("hide");
 
-}
+    }
 
 };
+
   </script>
 </body>
 </html>
