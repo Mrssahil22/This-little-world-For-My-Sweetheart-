@@ -202,17 +202,48 @@ namePage.classList.remove("hide");
 
 };
 
-continueBtn.onclick=async()=>{
+continueBtn.onclick = async () => {
 
 if(userName.value.trim()==""){
-
 alert("Please enter your name ❤️");
 return;
-
 }
-  loadQuestion();
+
+welcomeText.innerHTML = "Welcome " + userName.value + " ❤️";
+
+namePage.classList.add("hide");
+quizPage.classList.remove("hide");
+
+await loadQuestions();
+
+loadQuestion();
 
 };
+async function loadQuestions(){
+
+const q = query(
+collection(db,"questions"),
+orderBy("number")
+);
+
+const snapshot = await getDocs(q);
+
+questions = [];
+
+snapshot.forEach((doc)=>{
+
+questions.push(doc.data());
+
+});
+
+  }
+
+
+
+
+  
+
+
 
 function loadQuestion(){
 
