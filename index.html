@@ -222,8 +222,8 @@ loadQuestion();
 async function loadQuestions(){
 
 const q = query(
-collection(db,"questions"),
-orderBy("number")
+collection(db,"question"),
+orderBy("Order")
 );
 
 const snapshot = await getDocs(q);
