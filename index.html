@@ -128,7 +128,23 @@ Continue ❤️
 </button>
 
 </div>
+<div id="quizPage" class="hide">
 
+<h1 id="welcomeText"></h1>
+
+<div id="question"></div>
+
+<button id="option1"></button>
+
+<button id="option2"></button>
+
+<div id="message"></div>
+
+<button id="nextBtn">
+Next ❤️
+</button>
+
+</div>
 <div id="finalPage" class="hide">
 
     <h1>💖 One Last Message 💖</h1>
@@ -170,22 +186,6 @@ Continue ❤️
     </div>
 
 </div>
-
-
-
-
-
-
-
-<button id="option1"></button>
-
-<button id="option2"></button>
-
-<div id="message"></div>
-
-<button id="nextBtn">
-Next ❤️
-</button>
 
 </div>
 
@@ -310,8 +310,7 @@ await addDoc(collection(db,"responses"),{
 
 name:userName.value,
 
-question
-  question.innerHTML,
+question:question.innerHTML,
         answer: answer,
         message: msg,
         time: new Date()
